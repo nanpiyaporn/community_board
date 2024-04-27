@@ -10,7 +10,7 @@ import ClickOutHandler from "react-clickout-handler";
 export default function PostCard({id,content,created_at, photos, photos, profiles:authorProfile}) {
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]); 
-  const [dropdown, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [isSaved, setIsSaved] = useState(false);  
   const {profile:myProfile} = useContext(UserContext);
@@ -37,10 +37,10 @@ export default function PostCard({id,content,created_at, photos, photos, profile
     })
   }
   function fetchLikes() {
-    supabase.from("likes").select().eq("post_id", id).then(result => {
-      setLikes(result.data);
-    );
+    supabase.from('likes').select().eq('post_id', id)
+      .then(result => setLikes(result.data));
   }
+
   function handleClickOutsideDropdown(e) {
     e.stopPropagation();
     setDropdownOpen(false);
@@ -64,16 +64,30 @@ export default function PostCard({id,content,created_at, photos, photos, profile
       });
     }
   }
-  const toggleLike(){
-    if (isLikeByMe){
-      supabase.from("likes").delete().eq("post_id", id).eq("user_id", myProfile.id).then(() => {
-        fetchLikes();
-      });
+  function fetchComments() {
+    supabase.from('posts')
+      .select('*, profiles(*)')
+      .eq('parent', id)
+      .then(result => setComments(result.data));
+  }
+  function toggleLike() {
+    if (isLikedByMe) {
+      supabase.from('likes').delete()
+        .eq('post_id', id)
+        .eq('user_id', myProfile.id)
+        .then(() => {
+          fetchLikes();
+        });
       return;
     }
-    supabase.from("likes").insert({post_id: id, user_id: myProfile.id}).then(result => {
-      fetchLikes();
-    });
+    supabase.from('likes')
+      .insert({
+        post_id: id,
+        user_id: myProfile.id,
+      })
+      .then(result => {
+        fetchLikes();
+      })
   }
 
   function postComment(ev){
