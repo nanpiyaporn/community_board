@@ -49,14 +49,17 @@ export default function PostCard({id,content,created_at, photos, photos, profile
     e.stopPropagation();
     setDropdownOpen(true);
   }
-  function toggleSave(){
+  function toggleSave() {
     if (isSaved) {
-      supabase.from("saved_posts").delete().eq("post_id", id).eq("user_id", myProfile?.id)
-      .then(result => {
-        setIsSaved(false);
-        setDropdownOpen(false);
-      });
-    } 
+      supabase.from('saved_posts')
+        .delete()
+        .eq('post_id', id)
+        .eq('user_id', myProfile?.id)
+        .then(result => {
+          setIsSaved(false);
+          setDropdownOpen(false);
+        });
+    }
     if (!isSaved){
       supabase.from("saved_posts").insert({user_id: myProfile.id, post_id: id}).then(result => {
         setIsSaved(true);
@@ -64,12 +67,8 @@ export default function PostCard({id,content,created_at, photos, photos, profile
       });
     }
   }
-  function fetchComments() {
-    supabase.from('posts')
-      .select('*, profiles(*)')
-      .eq('parent', id)
-      .then(result => setComments(result.data));
-  }
+  const isLikedByMe = !!likes.find(like => like.user_id === myProfile?.id);
+
   function toggleLike() {
     if (isLikedByMe) {
       supabase.from('likes').delete()
@@ -101,6 +100,13 @@ export default function PostCard({id,content,created_at, photos, photos, profile
       setCommentText("");
     })
   }
+  function fetchComments() {
+    supabase.from('posts')
+      .select('*, profiles(*)')
+      .eq('parent', id)
+      .then(result => setComments(result.data));
+  }
+  
   return (
     <Card>
       <div className="flex gap-3">
