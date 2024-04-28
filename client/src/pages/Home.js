@@ -9,7 +9,7 @@ const Home = () => {
   
   const handleDelete = async (id) => {
     setBoards(prevBoards =>  { 
-      return prevBoards.filter(boardse => board.id !== id)
+      return prevBoards.filter(board => board.id !== id)
     }
   )
   }
@@ -45,7 +45,7 @@ const Home = () => {
           <div className="board-grid">
             {boards.map(board => (
               <Card key ={board.id}board={board} 
-              onDete = {handleDelete} />
+              onDelete = {handleDelete} />
           ))}
         </div>
       </div>
