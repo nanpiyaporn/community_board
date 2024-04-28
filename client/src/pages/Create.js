@@ -2,6 +2,10 @@ import { useState } from 'react'
 import supabase from '../client'
 import { useNavigate } from 'react-router-dom'
 
+
+
+
+
 const Create = () => {
 
   const navigate = useNavigate()
@@ -9,10 +13,11 @@ const Create = () => {
   const [ name, setName ] = useState('')
   const [ content, setContent ] = useState('')
   const [ linking, setLink ] = useState('')
+  //const [ photo, setPhoto ] = useState('')
   const [ formError, setError ] = useState(null)
   const [ message, setMessage ] = useState('') // Add this line
 
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -38,13 +43,35 @@ const Create = () => {
       setContent('')
       setLink('')
       setError(null)
-      setMessage('Successfully created a new crewmate!') // Add this line
+      setMessage('Successfully created a new content!') // Add this line
       setTimeout(() => {
         setMessage('') // Clear the message after 3 seconds
         navigate('/')
       }, 3000)
     }
   }
+
+  async function addPhoto(ev) {
+    const user = supabase.auth.user;
+    
+    if (!user) {
+      console.error('You must be authenticated to upload files.');
+      return;
+    }
+    
+    const files = ev.target.files;
+    for (const file of files) {
+      const newName = `${Date.now()}-${file.name}`;
+      const { data, error } = await supabase.storage.from('photos').upload(newName, file);
+    
+      if (error) {
+        console.error('Error uploading file:', error);
+      } else {
+        console.log('Uploaded file:', data);
+      }
+    }
+  }
+  
 
   return (
     <div className="board-card">
@@ -56,7 +83,10 @@ const Create = () => {
           type = "text" 
           id = "title" value = {title} onChange = {e => setTitle(e.target.value)} 
           />
-
+        <label className = "photo">Photo</label>
+        <input 
+          type = "file" onChange = { addPhoto} 
+          />
         <label htmlFor = "content">Content</label>
         <input 
           type = "text" 

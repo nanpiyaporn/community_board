@@ -34,7 +34,7 @@ nav h1 {
 }
  .board-grid {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   justify-content: center;
   justify-items: center;
  }
@@ -84,6 +84,16 @@ form button {
 }
 
 .submit-by button {
+  margin-right: 10px;
+  background: var(--primary);
+  color: #fff;
+  border: 0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: "Poppins";
+  cursor: pointer;
+}
+.order-by button {
   margin-right: 10px;
   background: var(--primary);
   color: #fff;

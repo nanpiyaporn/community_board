@@ -1,8 +1,13 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import supabase from '../client'
+import {useState} from 'react'
+
+
 
 const Card =({board, onDelete}) => {
+
+    
 
 
     const handleDelete = async () => {
@@ -18,6 +23,12 @@ const Card =({board, onDelete}) => {
             onDelete(board.id)
         }
     }
+    const [votes, setVotes] = useState(0)
+    
+    const handleUpvote = () => {
+        setVotes(votes + 1);
+      };
+
     return (
         <div className = "board-card">
             {/*<p>{crewmate.id}</p>*/}
@@ -27,9 +38,10 @@ const Card =({board, onDelete}) => {
             <h4>{board.name}</h4>
             <p>{board.created_at}</p>
 
-            <Link to = {board.id}>| upvote = 0 |</Link>
-            <Link to = {'/'+ board.id}>| edit |</Link>
-            <Link to = {'/'+ board.id}className ="delete" onClick = {handleDelete} >| Delete |</Link>
+            <Link to = {board.id} onClick={handleUpvote} >Upvote:   {votes}  </Link>
+            <Link to = {'/'+ board.id}> - comment  </Link>
+            <Link to = {'/'+ board.id}> - edit  </Link>
+            <Link to = {'/'+ board.id} className ="delete" onClick = {handleDelete} >  - Delete </Link>
         </div>
     )
 }
