@@ -15,7 +15,7 @@ const Home = () => {
   }
 
   useEffect(() => {
-    const fetcBoards = async () => {
+    const fetchBoards = async () => {
         const {data, error } = await supabase
           .from('board')
           .select()
@@ -32,7 +32,7 @@ const Home = () => {
           setFetchError(null)
         }
       }
-      fetcBoards()
+      fetchBoards()
   }, [])
 
 
@@ -44,7 +44,7 @@ const Home = () => {
 
           <div className="board-grid">
             {boards.map(board => (
-              <Card key ={board.id}board={board} 
+              <Card key ={board.id} board={board} 
               onDelete = {handleDelete} />
           ))}
         </div>

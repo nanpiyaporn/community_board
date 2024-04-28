@@ -10,9 +10,9 @@ function App() {
   return (
     <BrowserRouter>
       <nav>
-        <h1>Supa Smoothies</h1>
+        <h1>Welcome to community board</h1>
         <Link to="/">Home</Link>
-        <Link to="/create">Create New Smoothie</Link>
+        <Link to="/create">Create new post</Link>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
