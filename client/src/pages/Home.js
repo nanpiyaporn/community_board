@@ -17,11 +17,11 @@ const Home = () => {
   useEffect(() => {
     const fetcContentmates = async () => {
         const {data, error } = await supabase
-          .from('Contentmates')
+          .from('board')
           .select()
 
         if (error) {
-          setFetchError('Could not fetch Contentmates')
+          setFetchError('Could not fetch content')
           setContentmates(null)
           console.error(error)
           
@@ -40,11 +40,11 @@ const Home = () => {
     <div className="page home">
       {fetchError && <p className="fetch-error">{fetchError}</p>}
       {Contentmates && (
-        <div className="Contentmates">
+        <div className="board">
 
-          <div className="Contentmate-grid">
-            {Contentmates.map(Contentmate => (
-              <Card key ={Contentmate.id}Contentmate={Contentmate} 
+          <div className="board-grid">
+            {Contentmates.map(board => (
+              <Card key ={board.id}board={board} 
               onDete = {handleDelete} />
           ))}
         </div>

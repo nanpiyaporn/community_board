@@ -6,9 +6,10 @@ const Create = () => {
 
   const navigate = useNavigate()
   const [ title, setTitle ] = useState('')
+  const [ content, setContent ] = useState('')
   const [ name, setName ] = useState('')
-  const [ color, setColor ] = useState('')
-  const [ rating, setRating ] = useState('')
+  
+  
   const [ formError, setError ] = useState(null)
   const [ message, setMessage ] = useState('') // Add this line
 
@@ -16,19 +17,19 @@ const Create = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (!name || !title || !color || !rating) {
+    if (!name || !title || !content) {
       setError('Please fill in all fields')
       return
     }
 
     const { data, error } = await supabase
-      .from('crewmates')
+      .from('board')
       .insert([
-        { name, title, color, rating }
+        { name, title, content }
       ])
 
     if (error) {
-      setError('An error occurred while saving the crewmate')
+      setError('An error occurred while saving the content. Please try again later.')
       console.error(error)
     }
 
@@ -38,7 +39,7 @@ const Create = () => {
       setColor('')
       setRating('')
       setError(null)
-      setMessage('Successfully created a new crewmate!') // Add this line
+      setMessage('Successfully created a new content!') // Add this line
       setTimeout(() => {
         setMessage('') // Clear the message after 3 seconds
         navigate('/')
@@ -61,16 +62,16 @@ const Create = () => {
           id = "title" value = {title} onChange = {e => setTitle(e.target.value)} 
           />
 
-        <label htmlFor = "color">Color</label>
+        <label htmlFor = "content">content</label>
         <input 
           type = "text" 
-          id = "color" value = {color} onChange = {e => setColor(e.target.value)} 
+          id = "content" value = {content} onChange = {e => setContent(e.target.value)} 
           />
 
-        <label htmlFor = "rating">Rating</label>
+        <label htmlFor = "name">Name</label>
         <input 
-          type = "number" 
-          id = "rating" value = {rating} onChange = {e => setRating(e.target.value)} 
+          type = "text" 
+          id = "name" value = {name} onChange = {e => setName(e.target.value)} 
           />
         <button type = "submit">Create</button>
         {formError && <p className="form-error">{formError}</p>}
