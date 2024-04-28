@@ -53,7 +53,7 @@ const Update = () => {
       if (data) {
         setTitle(data.title)
         setName(data.name)
-        setColor(data.content)
+        setContent(data.content)
         //setRating(data.rating)
         //console.log(data)
       }
@@ -82,7 +82,7 @@ const Update = () => {
         <input 
           type = "text" 
           id = "content" 
-          value = {content} onChange = {e => setColor(e.target.value)} 
+          value = {content} onChange = {e => setContent(e.target.value)} 
           />
 
         
