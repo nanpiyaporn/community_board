@@ -38,7 +38,7 @@ const Update = () => {
   }
 
   useEffect(() => {
-    const fetchSmoothie = async () => {
+    const fetchContent = async () => {
       const { data, error } = await supabase  
         .from('board')
         .select()
@@ -52,12 +52,12 @@ const Update = () => {
       if (data) {
         setTitle(data.title)
         setName(data.name)
-        setColor(data.content)
-        setRating(data.linking)
+        setContent(data.content)
+        setLink(data.linking)
         //console.log(data)
       }
     }
-    fetchSmoothie()
+    fetchContent()
   }, [id, navigate])
 
   return (
@@ -75,14 +75,14 @@ const Update = () => {
         <input 
           type = "text" 
           id = "content" 
-          value = {content} onChange = {e => setColor(e.target.value)} 
+          value = {content} onChange = {e => setContent(e.target.value)} 
           />
 
         <label htmlFor = "linking">Linking</label>
         <input 
           type = "text" 
           id = "linking" 
-          value = {linking} onChange = {e => setRating(e.target.value)} 
+          value = {linking} onChange = {e => setLink(e.target.value)} 
           />
 
         <label htmlFor = "name">Name</label>
