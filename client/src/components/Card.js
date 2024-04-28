@@ -2,31 +2,32 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import supabase from '../client'
 
-const Card =({Contentmate, onDelete}) => {
+const Card =({board, onDelete}) => {
 
 
     const handleDelete = async () => {
         const {data, error} = await supabase
-            .from('Contentmates')
+            .from('board')
             .delete()
-            .eq('id', Contentmate.id)
+            .eq('id', board.id)
         if (error) {
             console.error(error)
         }
         if (data) {
             console.log(data)
-            onDelete(Contentmate.id)
+            onDelete(board.id)
         }
     }
     return (
-        <div className = "Contentmate-card">
-            {/*<p>{Contentmate.id}</p>*/}
-            <h2>{Contentmate.name}</h2>
-            <h4>{Contentmate.title}</h4>
-            <p>{Contentmate.color}</p>
-            <div className = "rating"> {Contentmate.rating}</div>
-            <Link to = {'/'+ Contentmate.id}>| edit |</Link>
-            <Link to = {'/'+ Contentmate.id}className ="delete" onClick = {handleDelete} >| Delete |</Link>
+        <div className = "board-card">
+            {/*<p>{board.id}</p>*/}
+            <h2>{board.name}</h2>
+            <h4>{board.title}</h4>
+            <p>{board.content}</p>
+            <p>{board.date}</p>
+           
+            <Link to = {'/'+ board.id}>| edit |</Link>
+            <Link to = {'/'+ board.id}className ="delete" onClick = {handleDelete} >| Delete |</Link>
         </div>
     )
 }

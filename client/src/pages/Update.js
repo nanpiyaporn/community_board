@@ -1,5 +1,4 @@
 
-
 import React,{useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import supabase from '../client'
@@ -11,20 +10,20 @@ const Update = () => {
 
   const [ title, setTitle ] = useState('')
   const [ name, setName ] = useState('')
-  const [ color, setColor ] = useState('')
-  const [ rating, setRating ] = useState('')
+  const [ content, setContent ] = useState('')
+  //const [ date, setDate ] = useState('')
   const [ formError, setFormError ] = useState(null)
 
   const handleSubmit = async (e) => { 
     e.preventDefault()
-    if (!name || !title || !color || !rating) {
+    if (!name || !title ) {
       setFormError('Please fill in all fields')
       return
     }
 
     const { data, error } = await supabase
-      .from('Contentmates')
-      .update({ name, title, color, rating })
+      .from('board')
+      .update({ name, title, content })
       .eq('id', id)
       
     if (error) {
@@ -40,9 +39,9 @@ const Update = () => {
   }
 
   useEffect(() => {
-    const fetchSmoothie = async () => {
+    const fetchContent = async () => {
       const { data, error } = await supabase  
-        .from('Contentmates')
+        .from('board')
         .select()
         .eq('id', id)
         .single()
@@ -54,12 +53,12 @@ const Update = () => {
       if (data) {
         setTitle(data.title)
         setName(data.name)
-        setColor(data.color)
-        setRating(data.rating)
+        setColor(data.content)
+        //setRating(data.rating)
         //console.log(data)
       }
     }
-    fetchSmoothie()
+    fetchContent()
   }, [id, navigate])
 
   return (
@@ -79,20 +78,15 @@ const Update = () => {
           value = {title} onChange = {e => setTitle(e.target.value)} 
           />
 
-        <label htmlFor = "color">Color</label>
+        <label htmlFor = "content">Content</label>
         <input 
           type = "text" 
-          id = "color" 
-          value = {color} onChange = {e => setColor(e.target.value)} 
+          id = "content" 
+          value = {content} onChange = {e => setColor(e.target.value)} 
           />
 
-        <label htmlFor = "rating">Rating</label>
-        <input 
-          type = "number" 
-          id = "rating" 
-          value = {rating} onChange = {e => setRating(e.target.value)} 
-          />
-        <button type = "submit">Update Contentmate</button>
+        
+        <button type = "submit">Update Content</button>
         {formError && <p className="form-error">{setFormError}</p>}
       </form>
     </div>

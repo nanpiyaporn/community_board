@@ -49,12 +49,7 @@ const Create = () => {
   return (
     <div className="page create">
       <form onSubmit ={handleSubmit}>
-        <label htmlFor = "name">Name</label>
-        <input 
-          type = "text" 
-          id = "name" value = {name} onChange = {e => setName(e.target.value)} 
-          />
-
+       
         <label htmlFor = "title">Title</label>
         <input 
           type = "text" 
