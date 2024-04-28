@@ -36,8 +36,7 @@ const Create = () => {
     if (data) {
       setTitle('')
       setName('')
-      setColor('')
-      setRating('')
+      setContent('')
       setError(null)
       setMessage('Successfully created a new content!') // Add this line
       setTimeout(() => {
