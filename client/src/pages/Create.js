@@ -24,7 +24,7 @@ const Create = () => {
     const { data, error } = await supabase
       .from('board')
       .insert([
-        { name, title, content, url }
+        { name, title, content, linking }
       ])
 
     if (error) {
@@ -35,7 +35,7 @@ const Create = () => {
     if (data) {
       setTitle('')
       setName('')
-      setCotent('')
+      setContent('')
       setLink('')
       setError(null)
       setMessage('Successfully created a new crewmate!') // Add this line
@@ -47,13 +47,9 @@ const Create = () => {
   }
 
   return (
-    <div className="page create">
+    <div className="board-card">
       <form onSubmit ={handleSubmit}>
-        <label htmlFor = "name">Name</label>
-        <input 
-          type = "text" 
-          id = "name" value = {name} onChange = {e => setName(e.target.value)} 
-          />
+        
 
         <label htmlFor = "title">Title</label>
         <input 
@@ -70,8 +66,15 @@ const Create = () => {
         <label htmlFor = "linking">url:</label>
         <input 
           type = "text" 
-          id = "linking" value = {url} onChange = {e => setLink(e.target.value)} 
+          id = "linking" value = {linking} onChange = {e => setLink(e.target.value)} 
           />
+
+        <label htmlFor = "name">Name</label>
+        <input 
+          type = "text" 
+          id = "name" value = {name} onChange = {e => setName(e.target.value)} 
+          />
+
         <button type = "submit">Create</button>
         {formError && <p className="form-error">{formError}</p>}
         {message && <p className="form-success">{message}</p>} 

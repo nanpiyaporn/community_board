@@ -22,9 +22,10 @@ const Card =({board, onDelete}) => {
         <div className = "board-card">
             {/*<p>{crewmate.id}</p>*/}
            
-            <h4>{board.title}</h4>
+            <h2>{board.title}</h2>
             <p>{board.content}</p>
-            <h2>{board.name}</h2>
+            <h4>{board.name}</h4>
+            <p>{board.created_at}</p>
             <Link to = {'/'+ board.id}>| Like = 0 |</Link>
             <Link to = {'/'+ board.id}>| edit |</Link>
             <Link to = {'/'+ board.id}className ="delete" onClick = {handleDelete} >| Delete |</Link>
