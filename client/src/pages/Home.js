@@ -17,7 +17,12 @@ const Home = () => {
   useEffect(() => {
     const fetchBoards = async () => {
       try {
-        let query = supabase.from('board').select().order(orderBy, {ascending: false});
+        let query = supabase.from('board').select();
+        if (orderBy === 'upvote') {
+          query = query.order('upvote', {descending: true}); {/*ascending: false*/}
+        } else {
+          query = query.order(orderBy, {ascending: false});
+        }
         if (searchQuery) {
           query = query.like('title', `%${searchQuery}%`);
         }

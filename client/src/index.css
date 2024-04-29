@@ -103,3 +103,15 @@ form button {
   font-family: "Poppins";
   cursor: pointer;
 }
+.commonttext {
+  font-family: "Poppins";
+  font-size: 1.2em;
+  color: #333;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.small-image {
+  width: 250px;  /* or any size you want */
+  height: auto;  /* maintain aspect ratio */
+}
